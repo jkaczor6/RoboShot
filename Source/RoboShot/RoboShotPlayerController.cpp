@@ -31,6 +31,12 @@ void ARoboShotPlayerController::BeginPlay()
 		}
 
 	}
+
+	HUDWidget = CreateWidget<UHUDWidget>(this, HUDWidgetClass);
+	if (HUDWidget)
+	{
+		HUDWidget->AddToViewport();
+	}
 }
 
 void ARoboShotPlayerController::SetupInputComponent()

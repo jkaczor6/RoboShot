@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "HUDWidget.h"
 #include "RoboShotPlayerController.generated.h"
 
 class UInputMappingContext;
@@ -40,5 +41,11 @@ protected:
 
 	/** Input mapping context setup */
 	virtual void SetupInputComponent() override;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UHUDWidget> HUDWidgetClass;
+
+	UPROPERTY(VisibleAnywhere)
+	UHUDWidget* HUDWidget;
 
 };
