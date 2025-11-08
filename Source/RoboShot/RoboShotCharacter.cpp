@@ -12,6 +12,17 @@
 #include "InputActionValue.h"
 #include "RoboShot.h"
 
+void ARoboShotCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	Gun = GetWorld()->SpawnActor<AGun>(GunClass);
+	if (Gun)
+	{
+		Gun->SetOwner(this);
+	}
+}
+
 ARoboShotCharacter::ARoboShotCharacter()
 {
 	// Set size for collision capsule
@@ -95,7 +106,10 @@ void ARoboShotCharacter::Look(const FInputActionValue& Value)
 
 void ARoboShotCharacter::Shoot(const FInputActionValue& Value)
 {
-	UE_LOG(LogTemp, Display, TEXT("You are shooting!"));
+	if (Gun)
+	{
+		Gun->PullTrigger();
+	}
 }
 
 void ARoboShotCharacter::DoMove(float Right, float Forward)

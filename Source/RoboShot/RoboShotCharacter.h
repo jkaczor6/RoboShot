@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+#include "Gun.h"
 #include "RoboShotCharacter.generated.h"
 
 class USpringArmComponent;
@@ -52,6 +53,8 @@ protected:
 	UPROPERTY(EditAnywhere, Category="Input")
 	UInputAction* ShootAction;
 
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 public:
 
 	/** Constructor */
@@ -98,5 +101,11 @@ public:
 
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AGun> GunClass;
+
+	UPROPERTY(VisibleAnywhere)
+	AGun* Gun;
 };
 
