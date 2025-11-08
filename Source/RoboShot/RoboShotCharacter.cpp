@@ -65,6 +65,9 @@ void ARoboShotCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ARoboShotCharacter::Look);
+
+		// Shooting
+		EnhancedInputComponent->BindAction(ShootAction, ETriggerEvent::Started, this, &ARoboShotCharacter::Shoot);
 	}
 	else
 	{
@@ -88,6 +91,11 @@ void ARoboShotCharacter::Look(const FInputActionValue& Value)
 
 	// route the input
 	DoLook(LookAxisVector.X, LookAxisVector.Y);
+}
+
+void ARoboShotCharacter::Shoot(const FInputActionValue& Value)
+{
+	UE_LOG(LogTemp, Display, TEXT("You are shooting!"));
 }
 
 void ARoboShotCharacter::DoMove(float Right, float Forward)
