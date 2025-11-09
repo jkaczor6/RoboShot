@@ -114,7 +114,7 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	float Health;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool IsAlive = true;
 
 	UFUNCTION()
