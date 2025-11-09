@@ -16,7 +16,9 @@ void ARoboShotCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+
 	OnTakeAnyDamage.AddDynamic(this, &ARoboShotCharacter::OnDamageTaken);
+	Health = MaxHealth;
 
 	GetMesh()->HideBoneByName("weapon_r", EPhysBodyOp::PBO_None);
 
@@ -163,5 +165,18 @@ void ARoboShotCharacter::DoJumpEnd()
 
 void ARoboShotCharacter::OnDamageTaken(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
 {
-	UE_LOG(LogTemp, Display, TEXT("Damage taken: %f"), Damage);
+	if (IsAlive)
+	{
+		UE_LOG(LogTemp, Display, TEXT("Damage taken: %f"), Damage);
+		Health -= Damage;
+		if (Health <= 0.0f)
+		{
+			IsAlive = false;
+			Health = 0.0f;
+
+			GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+			UE_LOG(LogTemp, Display, TEXT("Actor died: %s"), *DamagedActor->GetActorNameOrLabel());
+		}
+	}
 }
