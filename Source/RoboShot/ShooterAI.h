@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
+#include "RoboShotCharacter.h"
 #include "Kismet/GameplayStatics.h"
 #include "ShooterAI.generated.h"
 
@@ -23,5 +24,11 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
-	APawn* PlayerPawn;
+	UPROPERTY(EditAnywhere)
+	UBehaviorTree* EnemyAIBehaviorTree;
+
+	ARoboShotCharacter* PlayerCharacter;
+	ARoboShotCharacter* MyCharacter;
+
+	void StartBehaviorTree(ARoboShotCharacter* Player);
 };

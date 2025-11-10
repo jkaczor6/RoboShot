@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Kismet/GameplayStatics.h"
+#include "RoboShotCharacter.h"
+#include "ShooterAI.h"
 #include "RoboShotGameMode.generated.h"
 
 /**
@@ -13,6 +16,9 @@ UCLASS(abstract)
 class ARoboShotGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
+
+protected:
+	virtual void BeginPlay() override;
 
 public:
 	
