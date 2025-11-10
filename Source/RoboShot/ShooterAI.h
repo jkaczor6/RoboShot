@@ -6,6 +6,7 @@
 #include "AIController.h"
 #include "RoboShotCharacter.h"
 #include "Kismet/GameplayStatics.h"
+#include "BehaviorTree/BlackboardComponent.h"
 #include "ShooterAI.generated.h"
 
 /**
