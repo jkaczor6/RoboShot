@@ -12,6 +12,8 @@ UBTService_PlayerLocation::UBTService_PlayerLocation()
 
 void UBTService_PlayerLocation::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
+	Super::TickNode(OwnerComp, NodeMemory, DeltaSeconds);
+
 	AShooterAI* OwnerController = Cast<AShooterAI>(OwnerComp.GetAIOwner());
 	ARoboShotCharacter* Player = OwnerController->PlayerCharacter;
 	UBlackboardComponent* BlackboardComponent = OwnerController->GetBlackboardComponent();
