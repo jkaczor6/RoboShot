@@ -73,9 +73,6 @@ protected:
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 
-	/** Called for shooting input */
-	void Shoot(const FInputActionValue& Value);
-
 public:
 
 	/** Handles move inputs from either controls or UI interfaces */
@@ -119,5 +116,7 @@ public:
 
 	UFUNCTION()
 	void OnDamageTaken(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
+
+	void Shoot();
 };
 

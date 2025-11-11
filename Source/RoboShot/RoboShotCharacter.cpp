@@ -113,7 +113,7 @@ void ARoboShotCharacter::Look(const FInputActionValue& Value)
 	DoLook(LookAxisVector.X, LookAxisVector.Y);
 }
 
-void ARoboShotCharacter::Shoot(const FInputActionValue& Value)
+void ARoboShotCharacter::Shoot()
 {
 	if (Gun)
 	{
@@ -175,8 +175,7 @@ void ARoboShotCharacter::OnDamageTaken(AActor* DamagedActor, float Damage, const
 			Health = 0.0f;
 
 			GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-
-			UE_LOG(LogTemp, Display, TEXT("Actor died: %s"), *DamagedActor->GetActorNameOrLabel());
+			DetachFromControllerPendingDestroy();
 		}
 	}
 }
