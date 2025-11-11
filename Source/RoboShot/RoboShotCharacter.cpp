@@ -129,7 +129,12 @@ void ARoboShotCharacter::UpdateHUD()
 
 	if (PlayerController)
 	{
-		PlayerController->HUDWidget->SetHealthBarPercent(Health / MaxHealth);
+		float NewPercent = Health / MaxHealth;
+		if (NewPercent < 0.0f)
+		{
+			NewPercent = 0.0f;
+		}
+		PlayerController->HUDWidget->SetHealthBarPercent(NewPercent);
 	}
 }
 
@@ -180,6 +185,7 @@ void ARoboShotCharacter::OnDamageTaken(AActor* DamagedActor, float Damage, const
 	if (IsAlive)
 	{
 		Health -= Damage;
+		UpdateHUD();
 		if (Health <= 0.0f)
 		{
 			IsAlive = false;
@@ -188,6 +194,5 @@ void ARoboShotCharacter::OnDamageTaken(AActor* DamagedActor, float Damage, const
 			GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 			DetachFromControllerPendingDestroy();
 		}
-		UpdateHUD();
 	}
 }
