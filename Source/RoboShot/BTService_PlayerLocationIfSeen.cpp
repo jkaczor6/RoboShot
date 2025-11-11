@@ -2,6 +2,8 @@
 
 
 #include "BTService_PlayerLocationIfSeen.h"
+#include "ShooterAI.h"
+#include "BehaviorTree/BlackboardComponent.h"
 
 UBTService_PlayerLocationIfSeen::UBTService_PlayerLocationIfSeen()
 {
@@ -12,5 +14,21 @@ void UBTService_PlayerLocationIfSeen::TickNode(UBehaviorTreeComponent& OwnerComp
 {
 	Super::TickNode(OwnerComp, NodeMemory, DeltaSeconds);
 
-	UE_LOG(LogTemp, Display, TEXT("Service is ticking %f"), DeltaSeconds);
+	AShooterAI* OwnerController = Cast<AShooterAI>(OwnerComp.GetAIOwner());
+	ARoboShotCharacter* Player = OwnerController->PlayerCharacter;
+	UBlackboardComponent* BlackboardComponent = OwnerController->GetBlackboardComponent();
+
+	if (OwnerController && Player && BlackboardComponent)
+	{
+		if (OwnerController->LineOfSightTo(Player))
+		{
+			BlackboardComponent->SetValueAsVector(GetSelectedBlackboardKey(), Player->GetActorLocation());
+			OwnerController->SetFocus(Player);
+		}
+		else
+		{
+			BlackboardComponent->ClearValue(GetSelectedBlackboardKey());
+			OwnerController->ClearFocus(EAIFocusPriority::Gameplay);
+		}
+	}
 }
