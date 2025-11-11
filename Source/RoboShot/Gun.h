@@ -41,6 +41,12 @@ public:
 	UPROPERTY(EditAnywhere)
 	float BulletDamage = 10.0f;
 
+	UPROPERTY(EditAnywhere)
+	USoundBase* ShootSound;
+
+	UPROPERTY(EditAnywhere)
+	USoundBase* ImpactSound;
+
 	AController* OwnerController;
 
 	UPROPERTY(EditAnywhere)
