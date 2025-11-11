@@ -45,7 +45,6 @@ void AShooterAI::StartBehaviorTree(ARoboShotCharacter* Player)
 
 		if (MyBlackboard && PlayerCharacter && MyCharacter)
 		{
-			MyBlackboard->SetValueAsVector("PlayerLocation", PlayerCharacter->GetActorLocation());
 			MyBlackboard->SetValueAsVector("StartLocation", MyCharacter->GetActorLocation());
 		}
 	}
