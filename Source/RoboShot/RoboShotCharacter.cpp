@@ -10,6 +10,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "RoboShotPlayerController.h"
 #include "RoboShot.h"
 
 void ARoboShotCharacter::BeginPlay()
@@ -19,6 +20,7 @@ void ARoboShotCharacter::BeginPlay()
 
 	OnTakeAnyDamage.AddDynamic(this, &ARoboShotCharacter::OnDamageTaken);
 	Health = MaxHealth;
+	UpdateHUD();
 
 	GetMesh()->HideBoneByName("weapon_r", EPhysBodyOp::PBO_None);
 
@@ -121,6 +123,16 @@ void ARoboShotCharacter::Shoot()
 	}
 }
 
+void ARoboShotCharacter::UpdateHUD()
+{
+	ARoboShotPlayerController* PlayerController = Cast<ARoboShotPlayerController>(GetController());
+
+	if (PlayerController)
+	{
+		PlayerController->HUDWidget->SetHealthBarPercent(Health / MaxHealth);
+	}
+}
+
 void ARoboShotCharacter::DoMove(float Right, float Forward)
 {
 	if (GetController() != nullptr)
@@ -167,7 +179,6 @@ void ARoboShotCharacter::OnDamageTaken(AActor* DamagedActor, float Damage, const
 {
 	if (IsAlive)
 	{
-		UE_LOG(LogTemp, Display, TEXT("Damage taken: %f"), Damage);
 		Health -= Damage;
 		if (Health <= 0.0f)
 		{
@@ -177,5 +188,6 @@ void ARoboShotCharacter::OnDamageTaken(AActor* DamagedActor, float Damage, const
 			GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 			DetachFromControllerPendingDestroy();
 		}
+		UpdateHUD();
 	}
 }
